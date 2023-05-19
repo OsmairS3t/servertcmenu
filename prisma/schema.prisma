@@ -11,31 +11,29 @@ datasource tc {
 }
 
 model Product {
-  id          String       @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   price       Float
   image       String
-  active      String
-  ingredients Ingredient[]
-  time        String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  order       Order[]
+  active      String   @default("Nao")
+  ingredients String?
+  time        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("products")
 }
 
 model Order {
-  id        String   @id @default(uuid())
-  productId String
-  order     String
-  place     String
-  cliente   String
-  amount    String
-  price     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Product   Product  @relation(fields: [productId], references: [id])
+  id           String   @id @default(uuid())
+  productId    String
+  order_number String
+  place        String?
+  client       String?
+  amount       String
+  price        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@map("orders")
 }
@@ -47,16 +45,15 @@ model Ingredient {
   price       Float
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  Product     Product? @relation(fields: [productId], references: [id])
 
   @@map("ingredients")
 }
 
 model Place {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   description String
-  id_user     String
-  client      String
+  id_user     String?
+  client      String?
 
   @@map("places")
 }
