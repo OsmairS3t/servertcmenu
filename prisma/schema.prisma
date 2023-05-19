@@ -5,7 +5,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
+datasource tc {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
@@ -18,20 +18,24 @@ model Product {
   active      String
   ingredients Ingredient[]
   time        String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   order       Order[]
 
   @@map("products")
 }
 
 model Order {
-  id        String  @id @default(uuid())
+  id        String   @id @default(uuid())
   productId String
   order     String
   place     String
   cliente   String
   amount    String
   price     String
-  Product   Product @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Product   Product  @relation(fields: [productId], references: [id])
 
   @@map("orders")
 }
@@ -41,7 +45,29 @@ model Ingredient {
   productId   String?
   description String
   price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   Product     Product? @relation(fields: [productId], references: [id])
 
   @@map("ingredients")
+}
+
+model Place {
+  id          String @id @default(uuid())
+  description String
+  id_user     String
+  client      String
+
+  @@map("places")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
 }
