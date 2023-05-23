@@ -16,7 +16,18 @@ export class ProductController {
                 image,
                 active,
                 time,
-                ingredients
+                IngredientProduct: {
+                    create: [
+                        ingredients.forEach(ing => {
+                            ingredient: {
+                                create: {
+                                    description: ing.description
+                                    price: ing.price
+                                }
+                            }
+                        })
+                    ]
+                }
             }
         })
         response.json(productController)

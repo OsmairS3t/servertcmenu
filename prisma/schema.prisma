@@ -14,13 +14,12 @@ model Product {
   id                String              @id @default(uuid())
   name              String
   price             Float
-  image             String
+  image             String?
   active            String              @default("Nao")
-  ingredients       String?
   time              String?
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-  IngredientProduct IngredientProduct[]
+  ingredientproduct IngredientProduct[]
 
   @@map("products")
 }
@@ -28,10 +27,10 @@ model Product {
 model Ingredient {
   id                String              @id @default(uuid())
   description       String
-  price             Float
+  price             Float?
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
-  IngredientProduct IngredientProduct[]
+  ingredientproduct IngredientProduct[]
 
   @@map("ingredients")
 }
@@ -39,6 +38,7 @@ model Ingredient {
 model IngredientProduct {
   ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
   product      Product    @relation(fields: [productId], references: [id])
+  amount       Int?
   ingredientId String
   productId    String
 
