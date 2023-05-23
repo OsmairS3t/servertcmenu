@@ -8,22 +8,24 @@ export class IngredientController {
     }
 
     async handle(request: Request, response: Response) {
-        const { description, price } = request.body
+        const { description, price, productId } = request.body
         const ingredientController = await prismaClient.ingredient.create({
             data: {
                 description,
-                price
+                price,
+                productId
             }
         })
         response.json(ingredientController)
     }
 
     async update(request: Request, response: Response) {
-        const { id, description, price } = request.body
+        const { id, description, price, productId } = request.body
         const ingredientController = await prismaClient.ingredient.update({
             data: {
                 description,
-                price
+                price,
+                productId
             },
             where: {
                 id: id

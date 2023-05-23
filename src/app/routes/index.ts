@@ -41,5 +41,7 @@ routes.delete('/products', productController.delete)
 //cadastro de vendas
 routes.get('/orders', orderController.list)
 routes.post('/orders', orderController.handle)
+routes.put('/orders', orderController.update)
+routes.delete('/orders', orderController.delete)
 
 export default routes;

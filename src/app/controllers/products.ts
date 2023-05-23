@@ -15,8 +15,8 @@ export class ProductController {
                 price,
                 image,
                 active,
-                ingredients,
-                time
+                time,
+                ingredients
             }
         })
         response.json(productController)
