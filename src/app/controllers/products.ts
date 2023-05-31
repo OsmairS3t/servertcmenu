@@ -3,7 +3,11 @@ import { prismaClient } from '../database'
 
 export class ProductController {
     async list(request: Request, response: Response) {
-        const productController = await prismaClient.product.findMany()
+        const productController = await prismaClient.product.findMany({
+            include: {
+                ingredients: true
+            }
+        })
         response.json(productController)
     }
 
@@ -16,20 +20,24 @@ export class ProductController {
                 image,
                 active,
                 time,
-                IngredientProduct: {
+                ingredients: {
                     create: [
-                        ingredients.forEach(ing => {
+                        {
                             ingredient: {
-                                create: {
-                                    description: ing.description
-                                    price: ing.price
-                                }
+                                create: { description: 'Farinha de Trigo' },
                             }
-                        })
+                        },
+                        {
+                            ingredient: {
+                                create: { description: 'Sal' },
+                            }
+                        },
+
                     ]
                 }
             }
         })
+        // ingredients.forEach(ing => {})
         response.json(productController)
     }
 
@@ -41,7 +49,6 @@ export class ProductController {
                 price,
                 image,
                 active,
-                ingredients,
                 time
             },
             where: {

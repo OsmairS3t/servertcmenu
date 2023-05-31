@@ -11,26 +11,26 @@ datasource tc {
 }
 
 model Product {
-  id                String              @id @default(uuid())
-  name              String
-  price             Float
-  image             String?
-  active            String              @default("Nao")
-  time              String?
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  ingredientproduct IngredientProduct[]
+  id          String              @id @default(uuid())
+  name        String
+  price       Float
+  image       String?
+  active      String              @default("Nao")
+  time        String?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  ingredients IngredientProduct[]
 
   @@map("products")
 }
 
 model Ingredient {
-  id                String              @id @default(uuid())
-  description       String
-  price             Float?
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  ingredientproduct IngredientProduct[]
+  id          String              @id @default(uuid())
+  description String
+  price       Float?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  products    IngredientProduct[]
 
   @@map("ingredients")
 }
